@@ -14,8 +14,9 @@ class TabController: UITabBarController {
         seUpTabBar()
         self.tabBar.isTranslucent = false
     }
+  
     private func seUpTabBar() {
-        let herosVC = createNavBar(with: "Heros", and: UIImage(systemName: "person") , vc: HerosViewController())
+        let herosVC = createNavBar(with: "Heros", and: UIImage(systemName: "person") , vc: HeroesViewController())
         let newsVC = createNavBar(with: "News", and: UIImage(systemName: "newspaper") , vc: NewsViewController())
         let favoritesVC = createNavBar(with: "Favorite", and: UIImage(systemName: "star.circle") , vc: FavoriteViewController())
         let statsVC = createNavBar(with: "PowerStats", and: UIImage(systemName: "bolt") , vc: StatsViewController())
