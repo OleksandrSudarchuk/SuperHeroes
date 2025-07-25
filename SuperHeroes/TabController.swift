@@ -19,8 +19,7 @@ class TabController: UITabBarController {
         let herosVC = createNavBar(with: "Heros", and: UIImage(systemName: "person") , vc: HeroesViewController())
         let newsVC = createNavBar(with: "News", and: UIImage(systemName: "newspaper") , vc: NewsViewController())
         let favoritesVC = createNavBar(with: "Favorite", and: UIImage(systemName: "star.circle") , vc: FavoriteViewController())
-        let statsVC = createNavBar(with: "PowerStats", and: UIImage(systemName: "bolt") , vc: StatsViewController())
-        self.setViewControllers([herosVC,newsVC,favoritesVC, statsVC], animated: true)
+        self.setViewControllers([herosVC,newsVC,favoritesVC], animated: true)
     }
 
     func createNavBar(with titel: String, and image: UIImage?, vc: UIViewController) -> UINavigationController {

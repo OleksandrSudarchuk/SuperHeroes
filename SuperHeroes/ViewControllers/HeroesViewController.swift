@@ -8,8 +8,16 @@
 import UIKit
 
 class HeroesViewController: UIViewController {
+   
+    
     //MARK: - Varibles
-    private var heros: Hero = []
+    private var heroes: Hero = []
+    private var filterOfHeroes: Hero = []
+    private var isFiltering: Bool {
+        return !(navigationItem.searchController?.searchBar.text?.isEmpty ?? true)
+    }
+    private var isSearching = false
+    
     //MARK: - UIComponents
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -22,14 +30,14 @@ class HeroesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        configureSerchController()
         self.view.backgroundColor = .red
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         ApiManager.shared.getHero { [weak self] result in
            
             DispatchQueue.main.async {
-                self?.heros = result
+                self?.heroes = result
                 self?.collectionView.reloadData()
             }
         }
@@ -39,20 +47,35 @@ class HeroesViewController: UIViewController {
     override func loadView() {
         view = collectionView
     }
+    
+    func configureSerchController() {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Search for a hero"
+        navigationItem.searchController = searchController
+    }
 }
 //MARK: - Extension for ViewController delegates and dataSours
 extension HeroesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        heros.count
+        return isFiltering ? filterOfHeroes.count: heroes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeroesCollectionViewCell.identifier, for: indexPath) as? HeroesCollectionViewCell else {
             fatalError("Failed to deque HeroesCollectionViewCell in HerosViewController")
         }
-        let hero = heros[indexPath.item]
+        let hero = isFiltering ? filterOfHeroes[indexPath.item]: heroes[indexPath.item]
         cell.configure(with: hero.images?.sm, heroName: hero.name?.capitalized ?? "")
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+      let activeArray = isFiltering ? filterOfHeroes: heroes
+        let character = activeArray[indexPath.item]
+        let detailVC = DetailHeroViewController()
+        detailVC.hero = character
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -70,4 +93,18 @@ extension HeroesViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
 }
-
+//MARK: - Extension Search Controller and Delegate
+extension HeroesViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let filter  = searchController.searchBar.text, !filter.isEmpty else {return}
+        isSearching = true
+        filterOfHeroes = heroes.filter {$0.name?.lowercased().contains(filter.lowercased()) ?? false }
+        collectionView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isSearching = false
+        filterOfHeroes.removeAll()
+        collectionView.reloadData()
+    }
+}
