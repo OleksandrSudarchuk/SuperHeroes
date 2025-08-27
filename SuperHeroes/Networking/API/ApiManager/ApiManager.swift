@@ -10,10 +10,10 @@ import Foundation
 enum ApiType {
     case login
     case getHeroes
-  
+    
     
     var baseURL: String {
-       "https://akabab.github.io/superhero-api/api"
+        "https://akabab.github.io/superhero-api/api"
     }
     
     var headers: [String: String] {
@@ -22,18 +22,18 @@ enum ApiType {
             return ["authToken":"12345"]
         case .getHeroes:
             return [:]
-        
+            
         }
     }
     
-        var path: String {
-            switch self {
-            case .login:
-                return "/login"
-            case .getHeroes:
-                return "/all.json"
-           
-            }
+    var path: String {
+        switch self {
+        case .login:
+            return "/login"
+        case .getHeroes:
+            return "/all.json"
+            
+        }
     }
     
     var request: URLRequest {
@@ -72,5 +72,5 @@ class ApiManager {
         }
         task.resume()
     }
-
+    
 }

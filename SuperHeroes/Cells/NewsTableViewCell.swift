@@ -11,12 +11,14 @@ import SnapKit
 
 class NewsTableViewCell: UITableViewCell {
     
-   //MARK: - Identifier
+    //MARK: - Identifier
     static let identifier = "NewsTableViewCell"
+    
     //MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
-         setUpUI()
+        setUpUI()
+       // setupBorder()
         
     }
     
@@ -25,14 +27,19 @@ class NewsTableViewCell: UITableViewCell {
     }
     
     //MARK: - UI Components
-    private let HStack: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        return stack
+    
+    private let containerView: UIView = {
+        let view = UIView()
+        view.layer.borderWidth = 2
+        view.layer.borderColor = UIColor.darkBlack.cgColor
+        view.clipsToBounds = true
+        return view
     }()
+    
     private let VContentStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
+        
         return stack
     }()
     
@@ -40,44 +47,29 @@ class NewsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.font = Typography.bodyMediumSemiBold()
+        label.textColor = .darkBlack
+        label.backgroundColor = .lightWhite
+        label.clipsToBounds = true
+        
         return label
     }()
     
-    private let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 12, weight: .regular)
-        return label
-    }()
+   
     
-   private let image: UIImageView = {
-       let image = UIImageView()
-        image.contentMode = .scaleAspectFit
+    private let image: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
         return image
     }()
-    
-    private let dateLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 9, weight: .light)
-        return label
-    }()
+ 
     //MARK: - Function configure
     func configure(with item: NewsItem ) {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        formatter.locale = Locale(identifier: "en_US")
-
-        if let data = item.pubData {
-            dateLabel.text = formatter.string(from: data)
-        } else {
-            dateLabel.text = ""
-        }
+ 
         titleLabel.text = item.title
-        descriptionLabel.text = item.description
-    
+        
+        
         
         if let urlString =  item.imageURL, let url = URL(string: urlString) {
             URLSession.shared.dataTask(with: url) { data, _, _ in
@@ -92,44 +84,33 @@ class NewsTableViewCell: UITableViewCell {
             image.image = UIImage(systemName: "photo")
         }
     }
+    private func setupBorder() {
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.darkBlack.cgColor
+        clipsToBounds = true
+    }
     
 }
 
 //MARK: - Extension
 extension NewsTableViewCell {
     func setUpUI() {
-        addSubview(HStack)
-        HStack.addArrangedSubview(image)
-        HStack.addArrangedSubview(VContentStack)
-        VContentStack.addArrangedSubview(titleLabel)
-        VContentStack.addArrangedSubview(descriptionLabel)
-        VContentStack.addArrangedSubview(dateLabel)
-        HStack.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(8)
-            
+        addSubview(containerView)
+        containerView.addSubview(image)
+        containerView.addSubview(titleLabel)
+        
+        containerView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(8)
+            make.top.bottom.equalToSuperview().inset(4)
         }
         
         image.snp.makeConstraints { make in
-            make.top.bottom.leading.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.25)
+            make.edges.equalTo(containerView.snp.edges)
         }
-        
-        VContentStack.snp.makeConstraints { make in
-            make.top.bottom.trailing.equalToSuperview()
-            make.leading.equalTo(image.snp.trailing)
-        }
-        
         titleLabel.snp.makeConstraints { make in
-            make.leading.trailing.top.equalToSuperview().inset(8)
+            make.leading.trailing.bottom.equalTo(containerView)
         }
         
-        descriptionLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(8)
-        }
-        
-        dateLabel.snp.makeConstraints { make in
-            make.trailing.leading.bottom.equalToSuperview().inset(8)
-        }
     }
     
 }

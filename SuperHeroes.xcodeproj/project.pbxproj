@@ -10,6 +10,10 @@
 		4D56A4FA2E1D441A003FFD63 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4D56A4F92E1D441A003FFD63 /* SnapKit */; };
 		4D56A4FD2E1D4434003FFD63 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4D56A4FC2E1D4434003FFD63 /* SDWebImage */; };
 		4D56A6162E1EA4AE003FFD63 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4D56A6152E1EA4AE003FFD63 /* FeedKit */; };
+		4DA277062E54880B0088D6DE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA277052E54880B0088D6DE /* FirebaseAuth */; };
+		4DA277082E54880B0088D6DE /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA277072E54880B0088D6DE /* FirebaseCore */; };
+		4DA2770A2E54880B0088D6DE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA277092E54880B0088D6DE /* FirebaseFirestore */; };
+		4DA2770C2E54880B0088D6DE /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA2770B2E54880B0088D6DE /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,8 +47,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D56A6162E1EA4AE003FFD63 /* FeedKit in Frameworks */,
+				4DA277082E54880B0088D6DE /* FirebaseCore in Frameworks */,
 				4D56A4FD2E1D4434003FFD63 /* SDWebImage in Frameworks */,
 				4D56A4FA2E1D441A003FFD63 /* SnapKit in Frameworks */,
+				4DA2770C2E54880B0088D6DE /* FirebaseStorage in Frameworks */,
+				4DA277062E54880B0088D6DE /* FirebaseAuth in Frameworks */,
+				4DA2770A2E54880B0088D6DE /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +98,10 @@
 				4D56A4F92E1D441A003FFD63 /* SnapKit */,
 				4D56A4FC2E1D4434003FFD63 /* SDWebImage */,
 				4D56A6152E1EA4AE003FFD63 /* FeedKit */,
+				4DA277052E54880B0088D6DE /* FirebaseAuth */,
+				4DA277072E54880B0088D6DE /* FirebaseCore */,
+				4DA277092E54880B0088D6DE /* FirebaseFirestore */,
+				4DA2770B2E54880B0088D6DE /* FirebaseStorage */,
 			);
 			productName = SuperHeroes;
 			productReference = 4D56A4DD2E1D42E1003FFD63 /* SuperHeroes.app */;
@@ -123,6 +135,7 @@
 				4D56A4F82E1D441A003FFD63 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4D56A4FB2E1D4434003FFD63 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				4D56A6142E1EA4AE003FFD63 /* XCRemoteSwiftPackageReference "FeedKit" */,
+				4DA277042E54880B0088D6DE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4D56A4DE2E1D42E1003FFD63 /* Products */;
@@ -163,12 +176,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J7J824QP9Y;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = SuperHeroes/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -190,12 +206,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J7J824QP9Y;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = SuperHeroes/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -378,6 +397,14 @@
 				minimumVersion = 10.1.3;
 			};
 		};
+		4DA277042E54880B0088D6DE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -395,6 +422,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4D56A6142E1EA4AE003FFD63 /* XCRemoteSwiftPackageReference "FeedKit" */;
 			productName = FeedKit;
+		};
+		4DA277052E54880B0088D6DE /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA277042E54880B0088D6DE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		4DA277072E54880B0088D6DE /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA277042E54880B0088D6DE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		4DA277092E54880B0088D6DE /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA277042E54880B0088D6DE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		4DA2770B2E54880B0088D6DE /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA277042E54880B0088D6DE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

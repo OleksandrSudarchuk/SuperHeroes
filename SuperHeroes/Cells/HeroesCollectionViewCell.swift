@@ -18,6 +18,7 @@ class HeroesCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super .init(frame: frame)
         setupUI()
+        setupBorder()
     }
     
     required init?(coder: NSCoder) {
@@ -27,10 +28,12 @@ class HeroesCollectionViewCell: UICollectionViewCell {
     //MARK: - UI Components
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .clear
-        label.textColor = .white
+        label.backgroundColor = UIColor.lightGray.withAlphaComponent(0.8)
+        label.textColor = .black
+        label.layer.cornerRadius = 10
+        label.layer.masksToBounds = true
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 17, weight: .medium)
+        label.font = Typography.bodyMediumSemiBold()
         label.textAlignment = .center
         return label
     }()
@@ -43,7 +46,7 @@ class HeroesCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
- 
+    
     //MARK: - Functions
     private func loadImage(from url: URL, into image: UIImageView) {
         URLSession.shared.dataTask(with: url) { data, responce, error in
@@ -63,6 +66,11 @@ class HeroesCollectionViewCell: UICollectionViewCell {
         }
         
         nameLabel.text = heroName
+    }
+    private func setupBorder() {
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.darkBlack.cgColor
+        clipsToBounds = true
     }
 }
 

@@ -10,20 +10,20 @@ import SnapKit
 import FeedKit
 
 class NewsViewController: UIViewController {
-   
     
-//MARK: - Constants and Varibles
-  let tableView = UITableView()
-  let nssMenager = NSSManager()
-  var feedItem: [NewsItem] = []
     
+    //MARK: - Constants and Varibles
+    let tableView = UITableView()
+    let nssMenager = NSSManager()
+    var feedItem: [NewsItem] = []
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        self.view.backgroundColor = .blue
+        
+        self.view.backgroundColor = .mediumGray
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = 170
+        tableView.rowHeight = 220
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
         Task {
             await loadFeed()
@@ -32,7 +32,7 @@ class NewsViewController: UIViewController {
     override func loadView() {
         view = tableView
     }
-//MARK: - Functions
+    //MARK: - Functions
     private func loadFeed() async {
         let url = "https://www.comicbookmovie.com/rss/"
         let item = await nssMenager.fetchRSS(from: url)
@@ -41,13 +41,13 @@ class NewsViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
-
-
+    
+    
 }
 
 //MARK: - Extension
 extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
-  
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         feedItem.count
@@ -61,4 +61,18 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         cell.configure(with: item)
         return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = DetailNewsViewController()
+        let passData = feedItem[indexPath.row]
+        vc.news = passData
+        navigationController?.pushViewController(vc, animated: true)
+    }
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 10
+//    }
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        let spacer = UIView()
+//        spacer.backgroundColor = .clear
+//        return spacer
+//    }
 }

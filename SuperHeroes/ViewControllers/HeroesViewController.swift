@@ -8,9 +8,8 @@
 import UIKit
 
 class HeroesViewController: UIViewController {
-   
     
-    //MARK: - Varibles
+    //MARK: - Variables
     private var heroes: Hero = []
     private var filterOfHeroes: Hero = []
     private var isFiltering: Bool {
@@ -27,15 +26,15 @@ class HeroesViewController: UIViewController {
         collectionView.backgroundColor = .systemBackground
         return collectionView
     }()
-    
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSerchController()
-        self.view.backgroundColor = .red
+        self.view.backgroundColor = .lightWhite
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         ApiManager.shared.getHero { [weak self] result in
-           
+            
             DispatchQueue.main.async {
                 self?.heroes = result
                 self?.collectionView.reloadData()
@@ -47,12 +46,15 @@ class HeroesViewController: UIViewController {
     override func loadView() {
         view = collectionView
     }
-    
+    //MARK: - Functions
     func configureSerchController() {
         let searchController = UISearchController()
+        searchController.searchBar.searchTextField.backgroundColor = .lightBlue
+        searchController.searchBar.searchTextField.font = Typography.bodyMediumRegular()
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Search for a hero"
+        
         navigationItem.searchController = searchController
     }
 }
@@ -71,7 +73,7 @@ extension HeroesViewController: UICollectionViewDelegateFlowLayout, UICollection
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-      let activeArray = isFiltering ? filterOfHeroes: heroes
+        let activeArray = isFiltering ? filterOfHeroes: heroes
         let character = activeArray[indexPath.item]
         let detailVC = DetailHeroViewController()
         detailVC.hero = character
