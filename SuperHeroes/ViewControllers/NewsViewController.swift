@@ -11,11 +11,11 @@ import FeedKit
 
 class NewsViewController: UIViewController {
     
-    
     //MARK: - Constants and Varibles
     let tableView = UITableView()
     let nssMenager = NSSManager()
     var feedItem: [NewsItem] = []
+    
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +32,7 @@ class NewsViewController: UIViewController {
     override func loadView() {
         view = tableView
     }
+    
     //MARK: - Functions
     private func loadFeed() async {
         let url = "https://www.comicbookmovie.com/rss/"
@@ -41,13 +42,10 @@ class NewsViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
-    
-    
 }
 
 //MARK: - Extension
 extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         feedItem.count
@@ -59,6 +57,7 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         }
         let item = feedItem[indexPath.row]
         cell.configure(with: item)
+        
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -67,12 +66,5 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         vc.news = passData
         navigationController?.pushViewController(vc, animated: true)
     }
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 10
-//    }
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let spacer = UIView()
-//        spacer.backgroundColor = .clear
-//        return spacer
-//    }
+    
 }

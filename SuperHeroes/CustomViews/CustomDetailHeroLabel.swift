@@ -9,22 +9,21 @@ import UIKit
 
 
 class CustomDetailHeroLabel: UILabel {
-    //MARK: - Init
-    //MARK: - UI Components
-    //MARK: - Functions
-    //MARK: - Extension
     
+    //MARK: - Enum
     enum CustomDetailHeroLabelStyle {
         case mainTitle(String)
         case subTitle(title: String, value: String)
     }
+    
+    //MARK: - Variable
     private var title: String = ""
     var value: String = "" {
         didSet {
             updateLabel()
         }
     }
-    
+    //MARK: - Init
     init(style: CustomDetailHeroLabelStyle) {
         super.init(frame: .zero)
         
@@ -32,13 +31,11 @@ class CustomDetailHeroLabel: UILabel {
         self.textColor = .darkBlack
         self.numberOfLines = 0
         
-        
         switch style {
         case .mainTitle(let text):
             self.font = Typography.heading2()
             self.textAlignment = .center
             self.text = text
-            
             
         case .subTitle(let title, let value):
             self.title = title
@@ -47,8 +44,9 @@ class CustomDetailHeroLabel: UILabel {
             updateLabel()
             
         }
-        
     }
+    
+    //MARK: - Functions
     private func updateLabel() {
         let fullText = "\(title) \(value)"
         
@@ -61,6 +59,5 @@ class CustomDetailHeroLabel: UILabel {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
+
 }

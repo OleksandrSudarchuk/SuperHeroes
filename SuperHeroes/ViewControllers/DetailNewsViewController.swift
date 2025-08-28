@@ -8,24 +8,26 @@
 import UIKit
 
 class DetailNewsViewController: UIViewController {
+    
     //MARK: - Variables
     var news: NewsItem?
+    
     //MARK: - LifeCycle
-   
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mediumGray
         configureNews()
-        
     }
+    
     override func loadView() {
         view = newsView
     }
+    
     //MARK: - UI Components
     let newsView = NewsView()
     
     //MARK: - Functions
-   func configureNews() {
+    func configureNews() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.locale = Locale(identifier: "en_US")
@@ -35,9 +37,8 @@ class DetailNewsViewController: UIViewController {
         } else {
             newsView.dateLabel.text = ""
         }
-       newsView.titleLabel.text = news?.title
-       newsView.descriptionLabel.text = news?.description
-        
+        newsView.titleLabel.text = news?.title
+        newsView.descriptionLabel.text = news?.description
         
         if let urlString =  news?.imageURL, let url = URL(string: urlString) {
             URLSession.shared.dataTask(with: url) { data, _, _ in
@@ -52,8 +53,4 @@ class DetailNewsViewController: UIViewController {
             self.newsView.image.image = UIImage(systemName: "photo")
         }
     }
-    //MARK: - Selectors
-    //MARK: - Extensions
-
-
 }

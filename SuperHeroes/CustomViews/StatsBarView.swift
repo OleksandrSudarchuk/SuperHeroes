@@ -9,12 +9,11 @@ import UIKit
 import SnapKit
 
 class StatsBarView: UIView {
-    //MARK: - Init
     
+    //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -22,12 +21,12 @@ class StatsBarView: UIView {
     }
     
     //MARK: - UI Components
-    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = Typography.bodySmallSemiBold()
         return label
     }()
+    
     private let barBackgroundColor: UIView = {
         let view  = UIView()
         view.backgroundColor = .lightGray.withAlphaComponent(0.3)
@@ -35,6 +34,7 @@ class StatsBarView: UIView {
         view.clipsToBounds = true
         return view
     }()
+    
     private let BarFillView: UIView = {
         let view  = UIView()
         view.layer.cornerRadius = 4
@@ -43,7 +43,6 @@ class StatsBarView: UIView {
         return view
     }()
     
-   
     //MARK: - Functions
 
     func configure(title: String, value: Float) {
@@ -56,8 +55,8 @@ class StatsBarView: UIView {
         }
     }
 }
-//MARK: - Extenstion: SetupUI
 
+//MARK: - Extenstion: SetupUI
 extension StatsBarView {
     func setUp() {
         addSubview(titleLabel)
@@ -66,7 +65,6 @@ extension StatsBarView {
         
         titleLabel.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview().inset(4)
-            //            make.width.equalTo(100)
         }
         
         barBackgroundColor.snp.makeConstraints { make in

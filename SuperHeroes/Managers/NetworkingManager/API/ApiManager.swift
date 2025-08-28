@@ -22,7 +22,6 @@ enum ApiType {
             return ["authToken":"12345"]
         case .getHeroes:
             return [:]
-            
         }
     }
     
@@ -32,7 +31,6 @@ enum ApiType {
             return "/login"
         case .getHeroes:
             return "/all.json"
-            
         }
     }
     
@@ -49,7 +47,6 @@ enum ApiType {
         return request
     }
 }
-
 
 class ApiManager {
     static let shared = ApiManager()
@@ -72,5 +69,4 @@ class ApiManager {
         }
         task.resume()
     }
-    
 }

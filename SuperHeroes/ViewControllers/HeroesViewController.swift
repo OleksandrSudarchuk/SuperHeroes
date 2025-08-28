@@ -26,6 +26,7 @@ class HeroesViewController: UIViewController {
         collectionView.backgroundColor = .systemBackground
         return collectionView
     }()
+    
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,12 +41,12 @@ class HeroesViewController: UIViewController {
                 self?.collectionView.reloadData()
             }
         }
-        
-        
     }
+    
     override func loadView() {
         view = collectionView
     }
+    
     //MARK: - Functions
     func configureSerchController() {
         let searchController = UISearchController()
@@ -54,10 +55,10 @@ class HeroesViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Search for a hero"
-        
         navigationItem.searchController = searchController
     }
 }
+
 //MARK: - Extension for ViewController delegates and dataSours
 extension HeroesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -72,6 +73,7 @@ extension HeroesViewController: UICollectionViewDelegateFlowLayout, UICollection
         cell.configure(with: hero.images?.sm, heroName: hero.name?.capitalized ?? "")
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let activeArray = isFiltering ? filterOfHeroes: heroes
         let character = activeArray[indexPath.item]
@@ -81,8 +83,8 @@ extension HeroesViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let size = (self.view.frame.width/3)-1.34
+        
         return CGSize(width: size, height: size)
     }
     
@@ -93,8 +95,8 @@ extension HeroesViewController: UICollectionViewDelegateFlowLayout, UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         2
     }
-    
 }
+
 //MARK: - Extension Search Controller and Delegate
 extension HeroesViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {

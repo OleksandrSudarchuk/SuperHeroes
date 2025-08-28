@@ -11,9 +11,10 @@ import SDWebImage
 
 class HeroStatsView: UIView {
     
+    //MARK: - Variable
     var heroElement: HeroElement?
-    //MARK: - Init
     
+    //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -23,8 +24,8 @@ class HeroStatsView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    //MARK: - UI Components
     
+    //MARK: - UI Components
     private let imageAndStatsStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -32,6 +33,7 @@ class HeroStatsView: UIView {
         stackView.alignment = .center
         return stackView
     }()
+    
     private let leftSubStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -40,13 +42,13 @@ class HeroStatsView: UIView {
         return stackView
     }()
     
-    
     let imageHero: UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
         image.contentMode = .scaleToFill
         return image
     }()
+    
     private let statsStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -62,6 +64,7 @@ class HeroStatsView: UIView {
         view.backgroundColor = .lightWhite
         return view
     }()
+    
     let intelligence = StatsBarView()
     let strength = StatsBarView()
     let speed = StatsBarView()
@@ -69,8 +72,6 @@ class HeroStatsView: UIView {
     let power = StatsBarView()
     let combat = StatsBarView()
     
-    
-  
     let heroName: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -96,13 +97,14 @@ class HeroStatsView: UIView {
         power.configure(title: "power", value: Float(vm.power))
         combat.configure(title: "combat", value: Float(vm.combat))
     }
+    
     private func setUpBorder() {
-      
         layer.borderColor = UIColor.deepGray.cgColor
         layer.borderWidth = 1.5
         clipsToBounds = true
     }
 }
+
 //MARK: - Extension
 extension HeroStatsView {
     func setupUI() {
@@ -119,12 +121,10 @@ extension HeroStatsView {
         statsStackView.addArrangedSubview(power)
         statsStackView.addArrangedSubview(combat)
         
-        
         imageAndStatsStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-         
-            
         }
+        
         leftSubStack.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.3)
@@ -134,6 +134,7 @@ extension HeroStatsView {
             make.width.equalToSuperview()
             make.height.equalTo(imageHero.snp.width).multipliedBy(1.7)
         }
+        
         heroName.snp.makeConstraints { make in
             make.width.equalTo(imageHero.snp.width)
         }
@@ -141,17 +142,15 @@ extension HeroStatsView {
         statsView.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(0.7)
             make.top.bottom.equalToSuperview()
-            // make.height.equalTo(160)
         }
+        
         statsStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-           
         }
         
         [intelligence, strength, speed, durability, power, combat].forEach { $0.snp.makeConstraints { make in
-         
-        } }
-
-        
+            
+          }
+        }
     }
 }

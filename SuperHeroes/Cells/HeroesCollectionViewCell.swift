@@ -10,11 +10,11 @@ import SnapKit
 import SDWebImage
 
 class HeroesCollectionViewCell: UICollectionViewCell {
+    
     //MARK: - Identifier
     static let identifier = "HeroesCollectionViewCell"
     
     //MARK: - Init
-    
     override init(frame: CGRect) {
         super .init(frame: frame)
         setupUI()
@@ -46,7 +46,6 @@ class HeroesCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    
     //MARK: - Functions
     private func loadImage(from url: URL, into image: UIImageView) {
         URLSession.shared.dataTask(with: url) { data, responce, error in
@@ -67,6 +66,7 @@ class HeroesCollectionViewCell: UICollectionViewCell {
         
         nameLabel.text = heroName
     }
+    
     private func setupBorder() {
         layer.borderWidth = 2
         layer.borderColor = UIColor.darkBlack.cgColor
@@ -75,7 +75,6 @@ class HeroesCollectionViewCell: UICollectionViewCell {
 }
 
 //MARK: - Extention with set up UI
-
 extension HeroesCollectionViewCell {
     func setupUI() {
         

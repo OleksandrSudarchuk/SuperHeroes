@@ -10,17 +10,16 @@ import UIKit
 class CustomAuthLabel: UILabel {
     
     //MARK: - Enum
-    
     enum CustomLabelStyle {
         case email
         case password
         case userName
     }
-    //MARK: - Functions
+    
+    //MARK: - Constant
     private let authCustomLabel: CustomLabelStyle
     
     //MARK: - Init
-    
     init(labelStyle: CustomLabelStyle) {
         self.authCustomLabel = labelStyle
         super.init(frame: .zero)

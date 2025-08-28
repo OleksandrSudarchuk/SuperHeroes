@@ -22,16 +22,26 @@ class TabController: UITabBarController {
         let herosVC = createNavBar(with: "Heros", and: UIImage(systemName: "person") , vc: HeroesViewController())
         let newsVC = createNavBar(with: "News", and: UIImage(systemName: "newspaper") , vc: NewsViewController())
         let favoritesVC = createNavBar(with: "Favorite", and: UIImage(systemName: "star.circle") , vc: FavoriteViewController())
+        
         self.setViewControllers([herosVC,newsVC,favoritesVC], animated: true)
     }
     
     func createNavBar(with titel: String, and image: UIImage?, vc: UIViewController) -> UINavigationController {
+        let logoutButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action:  #selector(didtaplogout))
+        logoutButton.tintColor = .primaryBlue
+        logoutButton.setTitleTextAttributes([.font:Typography.button()], for: .normal)
+        
         let navController = UINavigationController(rootViewController: vc)
+        let fontForTabBar = [NSAttributedString.Key.font: Typography.bodySmallSemiBold()]
+        
+        navController.tabBarItem.setTitleTextAttributes(fontForTabBar, for: .normal)
         navController.tabBarItem.title = titel
         navController.tabBarItem.image = image
         navController.viewControllers.first?.navigationItem.title = titel
         navController.navigationBar.isTranslucent = false
-        navController.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action:  #selector(didtaplogout))
+        navController.viewControllers.first?.navigationItem.rightBarButtonItem = logoutButton
+        navController.navigationBar.titleTextAttributes = [.font: Typography.heading1()]
+        
         return navController
     }
     //MARK: - Selectors

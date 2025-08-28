@@ -26,10 +26,10 @@ class NSSManager {
                 
                 let imageURL = imageFromEnclosure ?? imageFromITunes ?? imageFromMedia
                 
-                return  NewsItem(title: item.title ?? "NO Title",
+                return  NewsItem(title:       item.title ?? "NO Title",
                                  description: item.description ?? "NO Description",
-                                 pubData: item.pubDate , link: item.link ?? "No link",
-                                 imageURL:imageURL
+                                 pubData:     item.pubDate , link: item.link ?? "No link",
+                                 imageURL:    imageURL
                 )
             } ?? []
             return item

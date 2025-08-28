@@ -9,17 +9,13 @@ import UIKit
 import SnapKit
 
 class CustomOrSeparatorView: UIView {
+    
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupUI()
     }
-    //MARK: - Init
-    //MARK: - UI Components
-    //MARK: - Functions
-    //MARK: - Extension
    
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -45,7 +41,6 @@ class CustomOrSeparatorView: UIView {
         return label
     }()
     
-    
 }
 
 //MARK: - Extension
@@ -54,7 +49,6 @@ extension CustomOrSeparatorView {
         addSubview(leftSeparator)
         addSubview(orLabel)
         addSubview(rightSeparator)
-        
         
         leftSeparator.snp.makeConstraints { make in
             make.centerY.equalTo(orLabel)

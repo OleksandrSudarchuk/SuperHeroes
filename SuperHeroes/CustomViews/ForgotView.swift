@@ -11,7 +11,6 @@ import SnapKit
 class ForgotView: UIView {
     
     //MARK: - Init
-   
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -20,6 +19,7 @@ class ForgotView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     //MARK: - UI Components
     private let mainStackview: UIStackView = {
         let stack = UIStackView()
@@ -30,15 +30,21 @@ class ForgotView: UIView {
         
         return stack
     }()
+    
    private let headerView = AuthHeaderView(title: "Forgot Password?", subTitle: "We will send a password reminder to the email address you use to log in")
+    
     private let subStackview: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         return stack
     }()
+    
     private let emailLabel = CustomAuthLabel(labelStyle: .email)
+    
     let emailTextField = CustomTextField(fieldType: .email)
+    
     let sendButton = CustomButton(title: "send email with instruction", fontSize: .main)
+    
     private let buttomSpacerView: UIView = {
         let view = UIView()
         view.setContentHuggingPriority(.defaultLow, for: .vertical)
@@ -58,11 +64,11 @@ extension ForgotView {
         subStackview.addArrangedSubview(sendButton)
         mainStackview.addArrangedSubview(buttomSpacerView)
         
-        
         mainStackview.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
             make.top.equalToSuperview().offset(150)
         }
+        
         headerView.snp.makeConstraints { make in
             make.height.equalTo(220)
             make.leading.trailing.equalToSuperview().inset(16)
@@ -75,16 +81,17 @@ extension ForgotView {
         emailLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
         }
+        
         emailTextField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(41)
         }
+        
         subStackview.setCustomSpacing(32, after: emailTextField)
         sendButton.snp.makeConstraints { make in
             make.trailing.leading.equalToSuperview()
             make.height.equalTo(46)
         }
-        
         
     }
 }

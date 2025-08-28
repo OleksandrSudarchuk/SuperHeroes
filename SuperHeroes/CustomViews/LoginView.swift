@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class LoginView: UIView {
+    
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,6 +19,7 @@ class LoginView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     private let mainStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -26,8 +28,9 @@ class LoginView: UIView {
         stack.alignment = .fill
         return stack
     }()
+    
     //MARK: - UI Components
-     let headerView = AuthHeaderView(title: "Hello", subTitle: "Enter your details or Login with google")
+    let headerView = AuthHeaderView(title: "Hello", subTitle: "Enter your details or Login with google")
     
     private let textFieldStackView: UIStackView = {
         let stack = UIStackView()
@@ -36,9 +39,13 @@ class LoginView: UIView {
     }()
     
     private let emailLabel = CustomAuthLabel(labelStyle: .email)
+    
     let emailTextField = CustomTextField(fieldType: .email)
+    
     private let passwordLabel = CustomAuthLabel(labelStyle: .password)
+    
     let passwordTextField = CustomTextField(fieldType: .password)
+    
     private let forgotPasswordStackView: UIStackView = {
         //spacer for keeping my button on right side with out conflics
         let spaser = UIView()
@@ -50,6 +57,7 @@ class LoginView: UIView {
         
         return stack
     }()
+    
     let forgotPasswordButton = CustomButton(title: "I forgot my password", fontSize: .small)
     
     private let buttonStackView: UIStackView = {
@@ -58,8 +66,11 @@ class LoginView: UIView {
         stack.spacing = 8
         return stack
     }()
+    
     let loginButton = CustomButton(title: "log in to your account", fontSize: .main)
-     let separateView = CustomOrSeparatorView()
+    
+    let separateView = CustomOrSeparatorView()
+    
     let loginGoogleButton = CustomButton(title: "log in with google", fontSize: .google)
     
     private let singupStackView: UIStackView = {
@@ -70,6 +81,7 @@ class LoginView: UIView {
         stack.alignment = .firstBaseline
         return stack
     }()
+    
     private let singupLabel: UILabel = {
         let label = UILabel()
         label.text = "don't have an account?"
@@ -77,6 +89,7 @@ class LoginView: UIView {
         label.textColor = .darkBlack
         return label
     }()
+    
     let singupButton = CustomButton(title: "sing up for free", fontSize: .small)
     
     //bottom spaser for keeping fill free space and don't make conflicts
@@ -91,171 +104,90 @@ class LoginView: UIView {
 //MARK: - Extenstion: SetupUI
 extension LoginView {
     func setupUI() {
-       
-            addSubview(mainStackView)
-            mainStackView.addArrangedSubview(headerView)
-            mainStackView.addArrangedSubview(textFieldStackView)
-            textFieldStackView.addArrangedSubview(emailLabel)
-            textFieldStackView.addArrangedSubview(emailTextField)
-            textFieldStackView.addArrangedSubview(passwordLabel)
-            textFieldStackView.addArrangedSubview(passwordTextField)
-
-            textFieldStackView.addArrangedSubview(forgotPasswordStackView)
-            // spacer уже добавлен у тебя в forgotPasswordStackView
-            forgotPasswordStackView.addArrangedSubview(forgotPasswordButton)
-
-            mainStackView.addArrangedSubview(buttonStackView)
-            buttonStackView.addArrangedSubview(loginButton)
-            buttonStackView.addArrangedSubview(separateView)
-            buttonStackView.addArrangedSubview(loginGoogleButton)
-            buttonStackView.addArrangedSubview(singupStackView)
-            singupStackView.addArrangedSubview(singupLabel)
-            singupStackView.addArrangedSubview(singupButton)
-
-            mainStackView.addArrangedSubview(bottomSpacer)
-
-            // 1) mainStackView занимает экран (с safe area)
-            mainStackView.snp.makeConstraints { make in
-                make.top.equalTo(safeAreaLayoutGuide.snp.top)
-                make.leading.trailing.bottom.equalToSuperview()
-            }
-
-            // 2) Отступы задаём margins у стэков, а не leading/trailing у их детей
-            mainStackView.isLayoutMarginsRelativeArrangement = true
-            mainStackView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-
-            // Внутренние стэки отступы НЕ задаём констрейнтами—они унаследуют ширину от mainStackView
-            // (если нужны собственные отступы для секции кнопок — можно так:)
-            buttonStackView.isLayoutMarginsRelativeArrangement = true
-            buttonStackView.layoutMargins = .zero // или UIEdgeInsets(top:0,left:0,bottom:0,right:0)
-
-            // 3) Высоты тем элементам, где нужно, — и БЕЗ leading/trailing
-            headerView.snp.makeConstraints { make in
-                make.height.equalTo(220)
-            }
-
-            emailTextField.snp.makeConstraints { make in
-                make.height.equalTo(41)
-            }
-            textFieldStackView.setCustomSpacing(16, after: emailTextField)
-
-            passwordTextField.snp.makeConstraints { make in
-                make.height.equalTo(41)
-            }
-            textFieldStackView.setCustomSpacing(16, after: passwordTextField)
-
-            forgotPasswordButton.snp.makeConstraints { make in
-                make.height.equalTo(22)
-            }
-
-            mainStackView.setCustomSpacing(16, after: textFieldStackView)
-
-            // Кнопки растягиваются на ширину стэка благодаря .alignment = .fill
-            loginButton.snp.makeConstraints { make in
-                make.height.equalTo(46)
-            }
-
-            // ❗️Важное изменение: убираем конфликтующие width/centerX/leading/trailing одновременно
-            // Достаточно только высоты — ширину даст стэк (через alignment = .fill)
-            separateView.snp.makeConstraints { make in
-                make.height.equalTo(22)
-                // Никаких width/centerX/leading/trailing тут не задаём
-            }
-
-            loginGoogleButton.snp.makeConstraints { make in
-                make.height.equalTo(50)
-            }
-
-            // ❗️singupStackView — НЕ центрируем и НЕ задаём leading/trailing внутри стэка
-            // Стэк сам выровняет; если нужно центрирование — достаточно:
-            singupStackView.alignment = .center
-            // Никаких дополнительных констрейнтов для singupStackView
-
-            // Для forgotPasswordStackView (горизонтальный): уже есть spacer слева.
-            // Убедись, что кнопка может ужиматься:
-            forgotPasswordButton.setContentCompressionResistancePriority(.required, for: .horizontal)
-            forgotPasswordButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        addSubview(mainStackView)
+        mainStackView.addArrangedSubview(headerView)
+        mainStackView.addArrangedSubview(textFieldStackView)
+        textFieldStackView.addArrangedSubview(emailLabel)
+        textFieldStackView.addArrangedSubview(emailTextField)
+        textFieldStackView.addArrangedSubview(passwordLabel)
+        textFieldStackView.addArrangedSubview(passwordTextField)
+        textFieldStackView.addArrangedSubview(forgotPasswordStackView)
+        forgotPasswordStackView.addArrangedSubview(forgotPasswordButton)
+        mainStackView.addArrangedSubview(buttonStackView)
+        buttonStackView.addArrangedSubview(loginButton)
+        buttonStackView.addArrangedSubview(separateView)
+        buttonStackView.addArrangedSubview(loginGoogleButton)
+        buttonStackView.addArrangedSubview(singupStackView)
+        singupStackView.addArrangedSubview(singupLabel)
+        singupStackView.addArrangedSubview(singupButton)
+        mainStackView.addArrangedSubview(bottomSpacer)
         
-//        addSubview(mainStackView)
-//        mainStackView.addArrangedSubview(headerView)
-//        mainStackView.addArrangedSubview(textFieldStackView)
-//        textFieldStackView.addArrangedSubview(emailLabel)
-//        textFieldStackView.addArrangedSubview(emailTextField)
-//        textFieldStackView.addArrangedSubview(passwordLabel)
-//        textFieldStackView.addArrangedSubview(passwordTextField)
-//        
-//        textFieldStackView.addArrangedSubview(forgotPasswordStackView)
-//        forgotPasswordStackView.addArrangedSubview(forgotPasswordButton)
-//        mainStackView.addArrangedSubview(buttonStackView)
-//        buttonStackView.addArrangedSubview(loginButton)
-//        buttonStackView.addArrangedSubview(separateView)
-//        buttonStackView.addArrangedSubview(loginGoogleButton)
-//        buttonStackView.addArrangedSubview(singupStackView)
-//        singupStackView.addArrangedSubview(singupLabel)
-//        singupStackView.addArrangedSubview(singupButton)
-//        mainStackView.addArrangedSubview(bottomSpacer)
-//        
-//        mainStackView.snp.makeConstraints { make in
-//            //   make.edges.equalToSuperview()
-//            make.leading.trailing.bottom.equalToSuperview()
-//            make.top.equalTo(safeAreaLayoutGuide.snp.top)
-//        }
-//        headerView.snp.makeConstraints { make in
-//            
-//            make.height.equalTo(220)
-//            
-//        }
-//        
-//        textFieldStackView.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview().inset(16)
-//            
-//        }
-//        emailLabel.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview()
-//        }
-//        emailTextField.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview()
-//            make.height.equalTo(41)
-//        }
-//        textFieldStackView.setCustomSpacing(16 , after: emailTextField)
-//        
-//        passwordLabel.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview()
-//        }
-//        passwordTextField.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview()
-//            make.height.equalTo(41)
-//            
-//        }
-//        textFieldStackView.setCustomSpacing(16, after: passwordTextField)
-//        
-//        forgotPasswordButton.snp.makeConstraints { make in
-//            make.height.equalTo(22)
-//            
-//        }
-//        mainStackView.setCustomSpacing(16, after: textFieldStackView)
-//        
-//        buttonStackView.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview().inset(16)
-//        }
-//        loginButton.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview()
-//            make.height.equalTo(46)
-//        }
-//        separateView.snp.makeConstraints { make in
-//            make.width.equalTo(319)
-//            make.height.equalTo(22)
-//            make.centerX.equalToSuperview()
-//            make.leading.trailing.equalToSuperview().inset(32)
-//        }
-//        loginGoogleButton.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview()
-//            make.height.equalTo(50)
-//        }
-//        singupStackView.snp.makeConstraints { make in
-//            make.centerX.equalToSuperview()
-//            make.leading.trailing.equalToSuperview().inset(48)
-//        }
+        mainStackView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
+        }
+        
+        headerView.snp.makeConstraints { make in
+            make.height.equalTo(220)
+        }
+        
+        textFieldStackView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        emailLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+        }
+        
+        emailTextField.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(41)
+        }
+        
+        textFieldStackView.setCustomSpacing(16 , after: emailTextField)
+        
+        passwordLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+        }
+        
+        passwordTextField.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(41)
+        }
+        
+        textFieldStackView.setCustomSpacing(16, after: passwordTextField)
+        
+        forgotPasswordButton.snp.makeConstraints { make in
+            make.height.equalTo(22)
+        }
+        
+        mainStackView.setCustomSpacing(16, after: textFieldStackView)
+        
+        buttonStackView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        loginButton.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(46)
+        }
+        
+        separateView.snp.makeConstraints { make in
+            make.width.equalTo(319)
+            make.height.equalTo(22)
+            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(32)
+        }
+        
+        loginGoogleButton.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        
+        singupStackView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(48)
+        }
     }
 }
 

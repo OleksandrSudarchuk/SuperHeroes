@@ -19,18 +19,15 @@ class RegisterViewController: UIViewController {
         registerView.singinButton.addTarget(self, action: #selector(didTapSinginButton), for: .touchUpInside)
         registerView.singupButton.addTarget(self, action: #selector(didTapSingupButton), for: .touchUpInside)
         registerView.singupGoogleButton.addTarget(self, action: #selector(didTapSingupGoogleButton), for: .touchUpInside)
-        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         registerView.userNameTextField.becomeFirstResponder()
-        
     }
     
     override func loadView() {
         view = registerView
     }
-    
     
     //MARK: - Selectors
     @objc private func didTapSinginButton() {
@@ -69,6 +66,7 @@ class RegisterViewController: UIViewController {
         }
         
     }
+    
     @objc private func didTapSingupGoogleButton() {
         
     }

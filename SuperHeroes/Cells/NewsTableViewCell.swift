@@ -18,7 +18,6 @@ class NewsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
         setUpUI()
-       // setupBorder()
         
     }
     
@@ -27,7 +26,6 @@ class NewsTableViewCell: UITableViewCell {
     }
     
     //MARK: - UI Components
-    
     private let containerView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 2
@@ -55,22 +53,17 @@ class NewsTableViewCell: UITableViewCell {
         return label
     }()
     
-   
-    
     private let image: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
         return image
     }()
- 
+    
     //MARK: - Function configure
     func configure(with item: NewsItem ) {
- 
         titleLabel.text = item.title
-        
-        
-        
+
         if let urlString =  item.imageURL, let url = URL(string: urlString) {
             URLSession.shared.dataTask(with: url) { data, _, _ in
                 if let data = data {
@@ -84,6 +77,7 @@ class NewsTableViewCell: UITableViewCell {
             image.image = UIImage(systemName: "photo")
         }
     }
+    
     private func setupBorder() {
         layer.borderWidth = 2
         layer.borderColor = UIColor.darkBlack.cgColor
@@ -107,6 +101,7 @@ extension NewsTableViewCell {
         image.snp.makeConstraints { make in
             make.edges.equalTo(containerView.snp.edges)
         }
+        
         titleLabel.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalTo(containerView)
         }

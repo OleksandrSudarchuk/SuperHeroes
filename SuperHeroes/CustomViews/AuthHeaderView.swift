@@ -21,6 +21,7 @@ class AuthHeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     //MARK: - UI Components
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -49,6 +50,7 @@ class AuthHeaderView: UIView {
         return label
     }()
 }
+
 //MARK: - Extension
 extension AuthHeaderView {
     func setupUI() {

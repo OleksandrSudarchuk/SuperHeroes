@@ -15,6 +15,7 @@ class CustomButton: UIButton {
         case google
         case small
     }
+    
     //MARK: - Init
     init(title: String, fontSize: FontSize) {
         super.init(frame: .zero)
@@ -26,6 +27,7 @@ class CustomButton: UIButton {
             self.layer.cornerRadius = 12
             self.backgroundColor = .primaryBlue
             self.setTitleColor(.lightWhite, for: .normal)
+            
         case .google:
             self.titleLabel?.font = Typography.button()
             self.layer.cornerRadius = 12
@@ -33,6 +35,7 @@ class CustomButton: UIButton {
             self.layer.borderWidth = 1.5
             self.layer.borderColor = UIColor.primaryBlue.cgColor
             self.tintColor = .white
+            
             //set google image view
             var config = UIButton.Configuration.filled()
             config.image = UIImage(named: "icons-google")
@@ -52,15 +55,12 @@ class CustomButton: UIButton {
             config.buttonSize = .mini
             config.titleAlignment = .leading
             
-            
             self.configuration = config
-            
         }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
 }

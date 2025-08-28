@@ -11,9 +11,11 @@ import SDWebImage
 
 
 class StatsTableViewCell: UITableViewCell {
-//MARK: - Identifier
+    
+    //MARK: - Identifier
     let identifier = "StatsTableViewCell"
-//MARK: - Init
+    
+    //MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
         statsView.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -23,16 +25,15 @@ class StatsTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     //MARK: - UI Components
-  let statsView = HeroStatsView()
+    let statsView = HeroStatsView()
+    
     //MARK: - Function
     func apply(_ vm: HeroStatsVM) {
         statsView.configure(with: vm)
     }
-    func configure(with stats: HeroAPI,) {
-        
-    }
-    
+   
 }
 
 //MARK: - Extension

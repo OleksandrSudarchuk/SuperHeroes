@@ -9,11 +9,10 @@ import UIKit
 import CoreData
 
 class FavoriteViewController: UIViewController, NSFetchedResultsControllerDelegate {
-   
     
     //MARK: - Variables
-    
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     private lazy var fetchResultController: NSFetchedResultsController<Hero> = {
         let req: NSFetchRequest<Hero> = Hero.fetchRequest()
         req.predicate = NSPredicate(format: "isFavorite == %@", NSNumber(value: true))
@@ -21,13 +20,14 @@ class FavoriteViewController: UIViewController, NSFetchedResultsControllerDelega
             NSSortDescriptor(key: "favoritedAt", ascending: false),
             NSSortDescriptor(key: "name", ascending: true)
         ]
+        
         let controller = NSFetchedResultsController(fetchRequest: req, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         controller.delegate = self
+        
         return controller
     }()
-    //MARK: - LifeCycle
-  
     
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .lightWhite
@@ -43,13 +43,13 @@ class FavoriteViewController: UIViewController, NSFetchedResultsControllerDelega
             print("FRC error:", error)
         }
     }
+    
     override func loadView() {
         view = tableView
     }
+    
     //MARK: - UI Components
     private let tableView = UITableView()
-  
- 
 }
 
 //MARK: - Extensions
@@ -65,9 +65,11 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate  {
         cell.apply(vm)
         return cell
     }
+    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<any NSFetchRequestResult>) {
         tableView.reloadData()
     }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "delete") {
             [weak self] _, _, done in

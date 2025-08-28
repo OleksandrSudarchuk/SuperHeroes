@@ -26,10 +26,12 @@ class AuthManager {
             if let error = error { comletion(false, error)
                 return
             }
+            
             guard let result = result?.user else {
                 comletion(false, nil)
                 return
             }
+            
             let db = Firestore.firestore()
             db.collection("users")
                 .document(result.uid)
@@ -42,6 +44,7 @@ class AuthManager {
                 }
         }
     }
+    
     public func singInUser(with userRequest: LoginUserRequeste, complition: @escaping(Error?) -> Void) {
         
         Auth.auth().signIn(withEmail: userRequest.email , password: userRequest.password) { result, error in
@@ -51,9 +54,9 @@ class AuthManager {
             } else {
                 complition(nil)
             }
-            
         }
     }
+    
     public func logOut(complition: @escaping(Error?) -> Void) {
         do {
             try Auth.auth().signOut()
@@ -62,6 +65,7 @@ class AuthManager {
             complition(error)
         }
     }
+    
     public func forgotPassword(with email: String, complition: @escaping(Error?) -> Void) {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             complition(error)

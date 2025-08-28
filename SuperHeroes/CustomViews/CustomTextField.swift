@@ -8,14 +8,17 @@
 import UIKit
 
 class CustomTextField: UITextField {
+    
     //MARK: - Enum
     enum CustomTextFieldStyle {
         case userName
         case email
         case password
     }
+    
     //MARK: - Variables
     private let authFieldType: CustomTextFieldStyle
+    
     //MARK: - Init
     init(fieldType: CustomTextFieldStyle) {
         self.authFieldType = fieldType
@@ -32,7 +35,6 @@ class CustomTextField: UITextField {
         
         self.autocorrectionType = .no
         self.autocapitalizationType = .none
-        
         
         self.leftViewMode = .always
         self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 6, height: self.frame.size.height))

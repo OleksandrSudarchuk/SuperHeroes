@@ -17,8 +17,8 @@ class ForgotViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .lightWhite
         forgotView.sendButton.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
-        
     }
+    
     override func loadView() {
         view = forgotView
     }
@@ -38,5 +38,4 @@ class ForgotViewController: UIViewController {
             AlertManager.showPasswordResetSent(on: self)
         }
     }
-    
 }

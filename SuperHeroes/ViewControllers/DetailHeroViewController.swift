@@ -12,13 +12,13 @@ import CoreData
 
 
 class DetailHeroViewController: UIViewController, UIGestureRecognizerDelegate {
+    
     //MARK: - Variables and Constants
     var hero: HeroElement?
     
-    
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-      
         configureView()
         configureStats()
         updateFavoriteIcon()
@@ -27,17 +27,17 @@ class DetailHeroViewController: UIViewController, UIGestureRecognizerDelegate {
         self.navigationItem.hidesBackButton = true
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        
     }
+    
     override func loadView() {
         view = scrollView
     }
     
     //MARK: - UI Components
     let scrollView = DetailHeroScrollView()
- private lazy var favoriteButton = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(toggleFavorite))
-    //MARK: - Functions
+    private lazy var favoriteButton = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(toggleFavorite))
     
+    //MARK: - Functions
     func configureView() {
         scrollView.gender.value = hero?.appearance?.gender?.rawValue ?? "Unknown"
         scrollView.race.value = hero?.appearance?.race ?? "Unknown"
@@ -56,9 +56,6 @@ class DetailHeroViewController: UIViewController, UIGestureRecognizerDelegate {
         scrollView.base.value = hero?.work?.base ?? "Unknown"
         scrollView.groupAffiliation.value = hero?.connections?.groupAffiliation ?? "Unknown"
         scrollView.relatives.value = hero?.connections?.relatives ?? "Unknown"
-        
-        
-        
     }
     
     func configureStats() {
@@ -76,6 +73,7 @@ class DetailHeroViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.rightBarButtonItem?.image = UIImage(systemName: isFavorite ? "star.fill" : "star")
     }
     
+    //MARK: -Selector
     @objc private func toggleFavorite() {
         guard let apiHero = hero else {return}
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -106,7 +104,5 @@ class DetailHeroViewController: UIViewController, UIGestureRecognizerDelegate {
         } catch {
             print("Favorite toggle error:", error)
         }
-        
     }
-    
 }
