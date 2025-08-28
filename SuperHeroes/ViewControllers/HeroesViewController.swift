@@ -10,8 +10,8 @@ import UIKit
 class HeroesViewController: UIViewController {
     
     //MARK: - Variables
-    private var heroes: Hero = []
-    private var filterOfHeroes: Hero = []
+    private var heroes: HeroAPI = []
+    private var filterOfHeroes: HeroAPI = []
     private var isFiltering: Bool {
         return !(navigationItem.searchController?.searchBar.text?.isEmpty ?? true)
     }

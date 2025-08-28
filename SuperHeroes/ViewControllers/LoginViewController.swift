@@ -10,7 +10,7 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
     //MARK: - Variables
-    private let loginView = LoginView()
+     let loginView = LoginView()
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,10 +21,41 @@ class LoginViewController: UIViewController {
         loginView.singupButton.addTarget(self, action: #selector(didTapSingupButton), for: .touchUpInside)
         
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loginView.emailTextField.becomeFirstResponder()
         loginView.emailTextField.isHidden = false
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                for win in scene.windows {
+                    print("🪟 window:", win, "key:", win.isKeyWindow, "level:", win.windowLevel.rawValue)
+                    win.windowLevel = .normal
+                    win.isHidden = false
+                    win.isUserInteractionEnabled = true
+                }
+            }
+
+            // 2) узнаём КТО перекрывает центр кнопки
+            let p = view.convert(loginView.loginButton.center, from: loginView)
+            let hit = view.hitTest(p, with: nil)
+            print("🎯 hit at loginButton.center ->", hit.map { String(describing: type(of: $0)) } ?? "nil")
+
+            // 3) временно отключаем интерактив у того, кто не кнопка
+            if let hit, hit !== loginView.loginButton {
+                print("🚫 disabling interaction on:", type(of: hit))
+                hit.isUserInteractionEnabled = false
+                // если это жесты — чтобы тапы не съедались
+                hit.gestureRecognizers?.forEach { $0.cancelsTouchesInView = false }
+            }
+
+            // 4) на всякий отключим интерактив у декоративных вью (они не должны ловить тапы)
+            loginView.headerView.isUserInteractionEnabled = false
+            loginView.separateView.isUserInteractionEnabled = false
+
+            // 5) на самой корневой вью — никакие жесты не должны гасить тапы
+            view.gestureRecognizers?.forEach { $0.cancelsTouchesInView = false }
+        
+        
     }
     override func loadView() {
         view = loginView

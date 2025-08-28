@@ -54,12 +54,12 @@ enum ApiType {
 class ApiManager {
     static let shared = ApiManager()
     
-    func getHero(completion: @escaping (Hero) -> Void) {
+    func getHero(completion: @escaping (HeroAPI) -> Void) {
         let request = ApiType.getHeroes.request
         let task = URLSession.shared.dataTask(with: request) { data, responce, error in
             if let data = data {
                 do {
-                    let hero = try JSONDecoder().decode(Hero.self, from: data)
+                    let hero = try JSONDecoder().decode(HeroAPI.self, from: data)
                     DispatchQueue.main.async {
                         completion(hero)
                     }

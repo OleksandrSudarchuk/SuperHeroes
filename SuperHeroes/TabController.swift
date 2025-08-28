@@ -29,7 +29,7 @@ class TabController: UITabBarController {
         let navController = UINavigationController(rootViewController: vc)
         navController.tabBarItem.title = titel
         navController.tabBarItem.image = image
-        navController.viewControllers.first?.navigationItem.title = titel + "Controller"
+        navController.viewControllers.first?.navigationItem.title = titel
         navController.navigationBar.isTranslucent = false
         navController.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action:  #selector(didtaplogout))
         return navController

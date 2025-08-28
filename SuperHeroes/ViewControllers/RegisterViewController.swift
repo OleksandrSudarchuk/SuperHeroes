@@ -24,6 +24,7 @@ class RegisterViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         registerView.userNameTextField.becomeFirstResponder()
+        
     }
     
     override func loadView() {

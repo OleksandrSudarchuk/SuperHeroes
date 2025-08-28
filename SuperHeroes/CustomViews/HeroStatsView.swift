@@ -80,20 +80,21 @@ class HeroStatsView: UIView {
     }()
     
     //MARK: - Functions
-    func configureStats(with stats: HeroElement?) {
-        heroName.text = stats?.name ?? ""
-        if let urlString = stats?.images?.sm, let url = URL(string: urlString) {
+    func configure(with vm: HeroStatsVM) {
+        heroName.text = vm.name
+        
+        if let url = vm.imageURL {
             imageHero.sd_setImage(with: url, placeholderImage: UIImage(systemName: "person"))
-            
         } else {
             imageHero.image = UIImage(systemName: "person")
         }
-        intelligence.configure(title: "intelligence", value: Float(stats?.powerstats?.intelligence ?? 0) )
-        strength.configure(title: "strength", value: Float(stats?.powerstats?.strength ?? 0))
-        speed.configure(title: "speed", value: Float(stats?.powerstats?.speed ?? 0))
-        durability.configure(title: "durability", value: Float(stats?.powerstats?.durability ?? 0))
-        power.configure(title: "power", value: Float(stats?.powerstats?.power ?? 0))
-        combat.configure(title: "combat", value: Float(stats?.powerstats?.combat ?? 0))
+        
+        intelligence.configure(title: "Intelligence", value: Float(vm.intelligence))
+        strength.configure(title: "strength", value: Float(vm.strength))
+        speed.configure(title: "speed", value: Float(vm.strength))
+        durability.configure(title: "durability", value: Float(vm.durability))
+        power.configure(title: "power", value: Float(vm.power))
+        combat.configure(title: "combat", value: Float(vm.combat))
     }
     private func setUpBorder() {
       
@@ -121,7 +122,7 @@ extension HeroStatsView {
         
         imageAndStatsStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            // make.height.equalTo(160)
+         
             
         }
         leftSubStack.snp.makeConstraints { make in
@@ -144,7 +145,7 @@ extension HeroStatsView {
         }
         statsStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            // make.height.equalTo(200)
+           
         }
         
         [intelligence, strength, speed, durability, power, combat].forEach { $0.snp.makeConstraints { make in

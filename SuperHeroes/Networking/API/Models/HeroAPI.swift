@@ -71,4 +71,4 @@ struct Work: Codable {
     let occupation, base: String?
 }
 
-typealias Hero = [HeroElement]
+typealias HeroAPI = [HeroElement]
